@@ -19,8 +19,11 @@ for (const file of files.slice(0, 2)) {
 }
 
 const proposal = readFileSync(join(site, 'index.html'), 'utf8');
+const proposalCss = readFileSync(join(site, 'style.css'), 'utf8');
 assert.match(proposal, /wa\.me\/5511947797150/, 'WhatsApp ausente');
 assert.match(proposal, /instagram\.com\/megaespacofestaeventos/, 'Instagram ausente');
 assert.equal((proposal.match(/<video/g) || []).length, 4, 'A proposta deve exibir quatro vídeos');
+assert.match(proposal, /class="floating"[\s\S]*?<svg/, 'Botão flutuante deve usar ícone do WhatsApp');
+assert.match(proposalCss, /\.floating\{[^}]*width:58px[^}]*height:58px[^}]*border-radius:50%/, 'Botão flutuante deve ser circular');
 
 console.log('ACM Propostas: integridade validada.');
